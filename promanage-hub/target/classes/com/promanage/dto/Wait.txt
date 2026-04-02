@@ -1,0 +1,12 @@
+package com.promanage.dto;
+
+import com.promanage.entity.enums.BidStatus;
+import com.promanage.entity.enums.ProjectStatus;
+import com.promanage.entity.enums.TaskStatus;
+import java.time.LocalDate;
+
+// Note: To keep parsing and mapping simple without mapstruct/lombok, having everything in one file makes compilation simple.
+// They are public so controllers can use them.
+// We declare them in separate public Java files or just one file with multiple DTOs.
+// Since Java requires one public class per file (if public), I will write them as separate files in a moment.
+// Actually, I can use nested records inside a single class, or just multiple non-public records, wait, Controllers need them to be public.
