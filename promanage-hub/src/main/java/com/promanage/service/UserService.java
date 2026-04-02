@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//this is userservice class
 @Service
 public class UserService {
 
@@ -21,7 +22,7 @@ public class UserService {
     private final BidRepository bidRepository;
 
     public UserService(ProjectRepository projectRepository, CompanyRepository companyRepository,
-                       UserRepository userRepository, BidRepository bidRepository) {
+            UserRepository userRepository, BidRepository bidRepository) {
         this.projectRepository = projectRepository;
         this.companyRepository = companyRepository;
         this.userRepository = userRepository;
@@ -68,16 +69,13 @@ public class UserService {
     @Transactional
     public List<BidDto> viewBids(Long projectId) {
         List<Bid> bids = bidRepository.findByProjectIdWithCompany(projectId);
-        return bids.stream().map(bid ->
-                new BidDto(
-                        bid.getId(),
-                        bid.getProject().getTitle(),
-                        bid.getProject().getClient().getName(), // ← String userName fix
-                        bid.getCompany().getName(),
-                        bid.getProposedCost(),
-                        bid.getStatus().name()
-                )
-        ).collect(Collectors.toList());
+        return bids.stream().map(bid -> new BidDto(
+                bid.getId(),
+                bid.getProject().getTitle(),
+                bid.getProject().getClient().getName(), // ← String userName fix
+                bid.getCompany().getName(),
+                bid.getProposedCost(),
+                bid.getStatus().name())).collect(Collectors.toList());
     }
 
     public String acceptBid(Long bidId) {
@@ -102,7 +100,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-
     private ProjectDto mapToProjectDto(Project project) {
         return new ProjectDto(project.getId(), project.getTitle(), project.getDescription(),
                 project.getRequiredLanguage(), project.getDeadline(), project.getBudget(), project.getStatus(),
@@ -118,8 +115,7 @@ public class UserService {
                 bid.getProject().getClient().getName(), // ← String userName fix
                 bid.getCompany().getName(),
                 bid.getProposedCost(),
-                bid.getStatus().name()
-        );
+                bid.getStatus().name());
     }
 
     @Transactional
